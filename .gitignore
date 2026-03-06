@@ -1,0 +1,3 @@
+logs/
+memory/heartbeat-state.json
+.clawhub/lock.json
