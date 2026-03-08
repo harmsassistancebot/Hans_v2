@@ -29,6 +29,14 @@ Open-Meteo API, stündlich — Temp 08:00, Tageshöchst, Niederschlag morgens/mi
 
 KI, Technologie, Klimawandel, Geopolitik, globale Trends, ETFs — Fokus auf strategische Analysen und systematisches Risiko-Monitoring (finanziell, politisch, beruflich)
 
+## Remote-Zugriff Setup (2026-03-07)
+
+- **Tailscale:** installiert, läuft — Mini-IP: `100.67.185.14` (Hostname: `strangefruit6-mac-mini`)
+- **Tailscale-Account:** bot.harms@icloud.com (Mini), Jan eingeladen via mail@jan-harms.com
+- **SSH:** aktiviert, Key-Auth (Ed25519, Termius iPhone), Passwort-Login deaktiviert
+- **pmset autorestart:** 1 — Mini bootet nach Stromausfall automatisch
+- **SSH-App iPhone:** Termius (kostenlos)
+
 ## Backlog / Offen
 
 - [ ] Gmail/Kalender-Integration ins Morning Briefing
