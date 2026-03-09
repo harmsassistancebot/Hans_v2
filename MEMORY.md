@@ -12,10 +12,17 @@
 ## Morning Briefing
 
 - **Cron-Job:** täglich 05:00 Europe/Berlin
-- **Discord-Channel:** `1478842708540919929`
+- **Discord-Channel:** `1478842708540919929` → das ist `#main` im Server (NICHT der DM mit Jan)
 - **Config:** `workspace/briefing/morning-briefing.md`
 - **Cron-Job ID:** `d433efb2-7935-4784-bf42-6bad5fb3e8fc`
 - **Summarize-Skill:** aktiv — wichtigste Artikel werden gelesen und komprimiert
+
+## Discord Channel Setup (offen / zu besprechen)
+
+- **DM mit Jan:** `1478863033525731421` — aktueller Chat-Kanal
+- **#main (Server):** `1478842708540919929` — dort landet bisher das Morning Briefing
+- **Status:** Jan ist noch am Experimentieren, Channel-Struktur noch nicht final entschieden
+- **TODO:** Channel-Setup bewusst festlegen — wohin soll was? (Briefing, Alerts, Chat)
 
 ### Quellen
 
