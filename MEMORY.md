@@ -36,6 +36,14 @@ Open-Meteo API, stündlich — Temp 08:00, Tageshöchst, Niederschlag morgens/mi
 
 KI, Technologie, Klimawandel, Geopolitik, globale Trends, ETFs — Fokus auf strategische Analysen und systematisches Risiko-Monitoring (finanziell, politisch, beruflich)
 
+## Git / GitHub Setup (aktualisiert 2026-03-12)
+
+- **SSH-Key:** `~/.ssh/id_ed25519_harmsbot` → GitHub Account `HarmsAssistanceBot`
+- **SSH-Host:** `github-harmsbot` in `~/.ssh/config`
+- **pkb-staging:** `git@github-harmsbot:tyunkeow/pkb_staging.git` — HarmsAssistanceBot als Collaborator
+- **Hans_v2 (Workspace-Backup):** `git@github-harmsbot:harmsassistancebot/Hans_v2.git`
+- **Alter tyunkeow SSH-Key:** gelöscht (lokal + GitHub)
+
 ## Remote-Zugriff Setup (2026-03-07)
 
 - **Tailscale:** installiert, läuft — Mini-IP: `100.67.185.14` (Hostname: `strangefruit6-mac-mini`)
