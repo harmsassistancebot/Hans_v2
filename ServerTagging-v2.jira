@@ -1,0 +1,117 @@
+h1. {anchor:context}Context
+Ista operates servers in two environments: - *Azure* — organized in landing zones, each with an operationally responsible team \("owner") - *On-premises* — hosted at OEDIV and 3S
+
+*Two types of Azure landing zones:*
+
+|| Type || Description || Managed by ||
+| Self-managed | Operated DevOps-style by the owning squad | The squad itself |
+| Centrally-managed | Operated by a central admin team | LOT Server Infrastructure \(SI), Network Infrastructure \(NI), or Database Infrastructure \(DI) |
+
+Most centrally managed landing zones belong to country operations; some are application-specific. Country landing zones often host multiple applications.
+
+*LeanIX* is used as the Enterprise Architecture Repository. It tracks business applications and IT components — but not servers.
+
+----
+h1. {anchor:problem}Problem
+Multiple teams need to know, for each server: - Which team is operationally responsible for it? \(e.g. for immediate security fixes) - Which team is accountable for the servers regarding compliance and costs? - Which application is running on it? - Is it a production server?
+
+----
+h1. {anchor:systems-requiring-server-tags}Systems requiring server tags
+* *EDR* - SoC needs to react on security event. Needs metadata for assessing situation and contacting stakeholders.
+* *Tenable* - Basis for 10GR reporting of vulnerabilities. Application owners need to see their affected servers.
+* *Grafana* - TODO explain use case
+* *PowerBI FinOps report* - Needs to know who leads the team accountable for a server to inform them about cloud costs.
+* *10GR report* - PowerBI report for all 10 golden rules KPIs.
+
+h1. {anchor:required-server-tags}Required Server Tags
+Server tags are going to be maintained and/or consolidated in the CMDB \(IFS Assyst). From there this information can be synced to other tools which need server tags.
+
+|| Tag || Allowed Values || Used by ||
+| *Application* | Registered LeanIX applications | EDR, Tenable, Grafana |
+| *Operationally Responsible Team* \(maintaining team) | Registered LeanIX team. LeanIX has team placeholders for local IT of countries | EDR |
+| *Accountable Team* | Registered LeanIX team. LeanIX has team placeholders for local IT of countries | Tenable |
+| *IT Component* | Registered LeanIX IT Components | EDR, Tenable, Grafana _\(data quality improvement planned for 2027)_ |
+| *Server Type* | prod, nonprod | EDR, Tenable |
+| *10GR group* | LeanIX Tribe or local IT Team | 10GR report, Tenable \(\+ all other systems delivering 10GR data) |
+
+bq. Names in LeanIX can change. It is important that the CMDB stores the LeanIX factsheet IDs internally as canonical identifiers to be able to update the tag values.
+----
+h1. {anchor:azure-servers}Azure Servers
+The process for the initial filling and the continuous update for Azure servers is the same. LeanIX data should just be imported / refreshed in regular intervals.
+
+*Application Tag* For each server: - Look up the landing zone factsheet in LeanIX with the Azure subscription ID associated to the server - Read the relation "Hosted Applications" in LeanIX - If only one application: use application name - If multiple applications or empty: use "accountable team" > name
+
+bq. In the case of country subscriptions, the accountable team will be "local IT _\(COUNTRY)_".
+*Operationally Responsible Team Tag* - Look up the landing zone and take the team from the relation "operationally responsible Org Structure"
+
+*Accountable Team Tag* - Look up the landing zone and take the team from the relation "accountable Org Structure"
+
+*Server Type Tag \(prod / nonprod)* - Check the LeanIX factsheet if the subscription id is in the "PROD subscription ID" field or on the "NONPROD subscription ID" field and set accordingly.
+
+*10GR group* - Lookup the landing zone and take the "accountable Org Structure": If it’s a "local IT" team, use the name. If it’s another team, navigate to the parent \(tribe) and take the tribe name.
+
+h1. {anchor:on-premises-servers-oediv-3s}On-premises Servers \(OEDIV, 3S)
+h2. {anchor:initial-data-fill}Initial Data Fill
+*Application Tag*
+
+* Tunde’s \(IT Security) existing on-prem tag evaluation is used as the starting point.
+* LOT SI, DI, and NI verify correctness and plausibility.
+
+*Operationally Responsible Team Tag* - Value is either SI, NI, or DI. LOTs align on responsibilities between themselves.
+
+*Accountable Team Tag* - LOT SI pre-fills based on best knowledge; LOT SI, NI, and DI align on responsibilities between themselves.
+
+*Server Type Tag \(prod / nonprod)* - All on-premises servers default to *nonprod*. - Application owners are asked to update the classification for production environments. - Nonprod classification allows SoC to act quickly \(e.g. shutdown) if needed. - Application owners have an incentive to update the classification, because nonprod servers can be shutdown at any time.
+
+*10GR group* - Accountable Tribe or Country filled by LOTs based on best knowledge.
+
+bq. Note\! This is a new tag\! The definition has impact on the current work for the initial data fill.
+h2. {anchor:keeping-tag-data-up-to-date}Keeping Tag Data Up-to-Date
+|| Trigger || Process ||
+| New server or configuration change | LOT SI \(or NI/DI) updates server tag information directly in IFSassyst |
+
+h1. {anchor:ongoing-quality-monitoring}Ongoing Quality Monitoring
+* The PowerBI report will be extended to show missing tags.
+* ITAM Squad reviews tag consistency at least monthly and triggers corrective actions \(approaching LOTs or App Owners as needed).
+
+h1. {anchor:api-and-data-delivery}API and Data Delivery
+IFSassyst will expose the following server data via API and/or file export to EDR and Tenable:
+
+* Server name
+* LeanIX Application
+* LeanIX IT Component
+* Operationally Responsible Team
+* Accountable Team
+* Server Type \(Prod / Non-Prod)
+* 10GR group \(Tribe or Country)
+
+*Security concern:* A compromise of IFSassyst could lead to mass tag changes, which would cause incorrect permissions in EDR and other tools.
+
+Proposed mitigations: - IFSassyst is monitored by SIEM with a focus on detecting mass changes - Data exchange via regular export/import \(with a partial human review step) rather than direct live API - IFSassyst frontend changes require ITAM Squad approval to limit human error
+
+h1. {anchor:access-control-rbac}Access Control \(RBAC)
+Viewing server and tag data for all servers is restricted to: - IT Security and SoC - IT Infrastructure LOTs - We enable IT Asset Management \(Patrick) - We drive Public Cloud Adoption \(Janusz) - We enable Public Cloud Solutions \(Jan)
+
+All other teams and application owners have limited, scoped access only \(where technically possible).
+
+h1. {anchor:next-steps}Next Steps
+h2. {anchor:initial-data-fill-target-end-of-february}Initial Data Fill _\(target: end of February)_
+|| Step || Owner || Status ||
+| Prepare IFSassyst technically for new tags, automations, and PowerBI | ITAM Squad | in progress |
+| Prepare Excel template for cloud infrastructure and share with Jan | ITAM Squad | done |
+| Fill template: LeanIX Tag, Operational Responsibility, Country Tag, Server Type | Jan Harms | done |
+| Review Tunde’s IT Security tag evaluation, pre-fill Operational Responsibility, share with LOT SI | ITAM Squad | ? |
+| Quality check data, align LOT SI/NI/DI on responsibilities and IT Component tags | LOT SI | ? |
+| Upload data to IFSassyst, share PowerBI quality report, close gaps with LOTs/App Owners | ITAM Squad | ? |
+
+h2. {anchor:api-go-live-target-end-of-march}API Go-Live _\(target: end of March)_
+|| Step || Owner ||
+| Extend API with required data fields | ITAM Squad |
+| Configure Tenable API integration | Arpita + Tunde |
+| Test and configure EDR API integration | Konrad + Adam |
+| Cross-check tag data against existing tags in Tenable and EDR before go-live | IT Security + ITAM |
+
+h2. {anchor:other}Other
+* ITAM Squad provides PowerBI report access to all involved teams once completed
+* IT Security implements SIEM integration for IFSassyst
+* ITAM Squad defines quality reporting and regular update process → present to group in March
