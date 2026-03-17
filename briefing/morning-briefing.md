@@ -3,11 +3,23 @@
 ## Auftrag
 Erstelle ein kompaktes, strategisch ausgerichtetes Morning Briefing auf Deutsch. Fokus auf globale Trends, Risiken und strategische Entwicklungen — kein Kleinkram der Tagespolitik.
 
+Wichtig: **Kein Deep Reading, keine Volltext-Zusammenfassungen, kein summarize-CLI.** Arbeite primär mit Feed-Titeln, kurzen Beschreibungen/Teasern und offensichtlichen Metadaten aus RSS oder per `web_fetch` gezogenen Übersichtsseiten. Das Briefing soll **rate-limit-sparsam** sein.
+
 ## Nutzer-Profil
 - **Name:** frubnosis
 - **Standort:** Bochum (Rottstr. 20) / Arbeit: Essen (ista SE)
 - **Interessen:** KI, Technologie, Klimawandel, Geopolitik, globale Trends
 - **Ziel:** Systematisches Monitoring von finanziellen, politischen, beruflichen Risiken
+
+## Budget-Regeln / Effizienz
+- **Nur Feed-Sichtung / Übersichtsseiten**, kein Lesen kompletter Artikel
+- **Maximal 1 Eintrag pro Hauptkategorie**: Tech & KI, Geopolitik & News, Wirtschaft & Märkte
+- **Insgesamt maximal 3 Hauptmeldungen** aus diesen drei Kategorien zusammen
+- **Apple & Fujifilm** nur aufnehmen, wenn wirklich relevante Produkt-/Release-/Gerüchte-News sichtbar sind; sonst Kategorie weglassen
+- **Strategische Analyse** nur dann aufnehmen, wenn schon aus Feed-Titel/Teaser klar ein hoher Mehrwert erkennbar ist; sonst weglassen
+- Bei mehreren ähnlichen Meldungen: die strategisch wichtigste wählen, nicht die lauteste
+- Lieber **knapp und sauber priorisiert** als vollständig
+- Auch der Ideen-Teil unten soll **kurz** bleiben: nur sichtbare, konkrete Anschlussmöglichkeiten nennen
 
 ## Wetter
 Quelle: **Open-Meteo API** (kein API-Key nötig, sehr schnell)
@@ -29,14 +41,27 @@ Aus den stündlichen Daten extrahieren:
 Weathercode-Mapping (wichtigste):
 0=Klar, 1-3=Leicht bewölkt/bewölkt, 45/48=Nebel, 51-67=Regen, 71-77=Schnee, 80-82=Schauer, 95=Gewitter
 
-## Artikel-Zusammenfassung
-Für die 1-2 wichtigsten Artikel pro Kategorie: nutze das `summarize`-CLI-Tool um den Artikel tatsächlich zu lesen und zu komprimieren:
-```bash
-summarize "https://artikel-url.com" --length short
-```
-Falls summarize fehlschlägt (Paywall, Timeout): auf Headline/Teaser zurückfallen.
+## Ideen vom Vortag
+Zusätzlich zum Nachrichten-Teil: prüfe **alle Notes der Kategorie `ideas` vom vorangegangenen Kalendertag** im Obsidian-Vault.
 
-## Quellen (je 2-3 Top-Stories)
+Ziel:
+- kurz sichtbar machen, welche frischen Ideen von gestern existieren
+- pro Idee 1 knappen Vorschlag machen, **wie du konkret unterstützen kannst**
+
+Regeln:
+- nur Ideen vom **vorangegangenen Tag**, nicht ältere Backlog-Ideen
+- pro Idee **1 kurze Unterstützungsoption**
+- keine langen Analysen, kein Ausschmücken
+- wenn es keine neuen Ideen von gestern gibt: Bereich weglassen
+- wenn es sehr viele Ideen gibt: auf **maximal 3** priorisierte Ideen begrenzen
+- Unterstützungsangebote sollen konkret sein, z. B.:
+  - Struktur skizzieren
+  - Recherchefragen ableiten
+  - nächsten Arbeitsschritt formulieren
+  - Entwurf / Gliederung / Checkliste erstellen
+  - Risiken oder offene Fragen sichtbar machen
+
+## Quellen
 
 ### Tech & KI
 - https://feeds.arstechnica.com/arstechnica/index — Ars Technica RSS
@@ -59,9 +84,18 @@ Falls summarize fehlschlägt (Paywall, Timeout): auf Headline/Teaser zurückfall
 
 Nur anzeigen wenn es tatsächlich Neuigkeiten gibt (neue Produkte, Ankündigungen, relevante Gerüchte). Wenn nichts Neues: Kategorie weglassen.
 
-### Strategische Analyse (1-2 Highlights)
+### Strategische Analyse
 - https://www.project-syndicate.org/rss — Project Syndicate
 - https://www.carbonbrief.org/feed/ — Carbon Brief (Klima)
+
+Nur nutzen, wenn bereits aus Titel/Teaser ersichtlich ist, dass ein klarer strategischer Mehrwert besteht. Keine Volltext-Lektüre.
+
+## Arbeitsweise für Meldungen
+Für jede gewählte Meldung:
+- Nutze **Headline + Quelle + Link**
+- Ergänze **genau einen knappen Einordnungssatz** auf Basis von Titel/Teaser/Feed-Kontext
+- **Keine erfundenen Details**, keine Volltextbehauptungen
+- Wenn der Feed-Teaser zu dünn ist: lieber neutral bleiben statt spekulieren
 
 ## Ausgabe-Format (Discord-optimiert, KEIN Markdown-Table)
 
@@ -72,29 +106,32 @@ Nur anzeigen wenn es tatsächlich Neuigkeiten gibt (neue Produkte, Ankündigunge
 • 08:00 Uhr: [Temp]°C | Höchst: [Max]°C | [Wetterlage]
 • 🌧️ Niederschlag: morgens [X]% · mittags [X]% · abends [X]%
 
+💡 **Ideen von gestern** *(nur wenn vorhanden)*
+• **[Idee]**
+  Ich kann dich dabei unterstützen, indem ich [konkreter nächster Schritt].
+• **[Idee]**
+  Ich kann dich dabei unterstützen, indem ich [konkreter nächster Schritt].
+
 🤖 **Tech & KI**
 • **[Headline]** — [Quelle] <[Artikel-URL]>
-  [1-2 Sätze Zusammenfassung via summarize]
-• [Headline] — [Quelle] <[Artikel-URL]>
+  [1 kurzer Einordnungssatz auf Basis von Feed-Titel/Teaser]
 
 🌍 **Geopolitik & News**
 • **[Headline]** — [Quelle] <[Artikel-URL]>
-  [1-2 Sätze Zusammenfassung via summarize]
-• [Headline] — [Quelle] <[Artikel-URL]>
+  [1 kurzer Einordnungssatz auf Basis von Feed-Titel/Teaser]
 
 💹 **Wirtschaft & Märkte**
 • **[Headline]** — [Quelle] <[Artikel-URL]>
-  [1-2 Sätze Zusammenfassung via summarize]
-• [Headline] — [Quelle] <[Artikel-URL]>
+  [1 kurzer Einordnungssatz auf Basis von Feed-Titel/Teaser]
 
 📷 **Apple & Fujifilm** *(nur wenn Neuigkeiten vorhanden)*
 • [Produkt/Ankündigung] — [Quelle] <[Artikel-URL]>
 
-🔴 **Risk Radar** (Klimawandel, geopolitische Eskalation, Tech-Disruption)
-• [1-3 relevante Entwicklungen mit strategischer Einschätzung]
+🔴 **Risk Radar**
+• [1-3 kurze Punkte mit strategischer Einschätzung aus den ausgewählten Meldungen]
 
 📌 **Strategischer Ausblick**
-[2-3 Sätze: Was sind die wichtigsten Entwicklungen der nächsten Tage/Wochen?]
+[2 kurze Sätze: Was ist gerade wirklich wichtig?]
 ```
 
 ## Archivierung
@@ -107,4 +144,6 @@ Nach dem Senden das Briefing als Datei speichern:
 - Keine Paywall-Inhalte forcieren — wenn nicht zugänglich, überspringen
 - Links zu Artikeln in `<>` einwickeln (Discord embed-suppression)
 - Kein "Guten Morgen, hier ist dein Briefing..." — direkt starten
-- Prägnant halten, max. ~400 Wörter
+- Prägnant halten, Zielgröße eher **300-450 Wörter** statt lang
+- Wenn die Nachrichtenlage dünn ist, lieber kürzer sein
+- **Keine Deep-Read-Calls und kein summarize-CLI verwenden**
