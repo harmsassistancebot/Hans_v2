@@ -37,4 +37,21 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ---
 
+## Obsidian CLI
+
+- Current working CLI wrapper: `/opt/homebrew/bin/obsidian`
+- The old Homebrew-installed symlink to `/Applications/Obsidian.app/Contents/MacOS/Obsidian` caused Electron errors: `Unable to find helper app`
+- Working fix: replace the symlink with a small wrapper script that runs:
+  - `/Applications/Obsidian.app/Contents/MacOS/obsidian "$@"`
+- Backup of the old broken shim created on 2026-03-17:
+  - `/opt/homebrew/bin/obsidian.hans-bak-20260317-014136`
+- Symptom of the broken path:
+  - vault reads/writes sometimes worked
+  - `sync:status` was unreliable or noisy
+  - Obsidian Sync visibility lagged / was hard to verify
+- After the wrapper fix:
+  - `obsidian version` works cleanly
+  - `obsidian vault="Jan" sync:status` returns proper status again
+  - `sync:history` / `sync:read` became usable for verification
+
 Add whatever helps you do your job. This is your cheat sheet.

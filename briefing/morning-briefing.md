@@ -50,6 +50,7 @@ Ziel:
 
 Regeln:
 - nur Ideen vom **vorangegangenen Tag**, nicht ältere Backlog-Ideen
+- priorisiere nach **Umsetzbarkeit**: bevorzuge Ideen, bei denen die nächsten Schritte für dich als Assistant klar, konkret und direkt durchführbar sind
 - pro Idee **1 kurze Unterstützungsoption**
 - keine langen Analysen, kein Ausschmücken
 - wenn es keine neuen Ideen von gestern gibt: Bereich weglassen
