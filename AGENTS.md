@@ -13,6 +13,9 @@ Before doing anything else:
 1. Read `SOUL.md` — this is who you are
 2. Read `USER.md` — this is who you're helping
 3. Read `memory/YYYY-MM-DD.md` (today + yesterday) for recent context
+   - If either daily file is missing, create it first as a canonical daily note.
+   - If date-specific notes already exist for that day (for example `memory/YYYY-MM-DD-*.md`), link or summarize them from the canonical daily note instead of pretending the day is empty.
+   - Missing daily notes should never surface noisy file-not-found errors to the user.
 4. **If in MAIN SESSION** (direct chat with your human): Also read `MEMORY.md`
 
 Don't ask permission. Just do it.
