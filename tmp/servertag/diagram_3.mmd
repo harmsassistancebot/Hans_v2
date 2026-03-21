@@ -1,0 +1,9 @@
+flowchart TD
+  LeanIX;
+  Azure;
+  CMDB;
+  Tenable;
+  10grReport;
+  Azure -- "Server to subscription" --> CMDB
+  LeanIX -- "subscription to 10GR group" --> CMDB -- "Server to 10GR group" --> Tenable -- "Vulnerable Servers per 10GR group" --> 10grReport
+  LeanIX -- "?" --> 10grReport

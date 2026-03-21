@@ -1,0 +1,11 @@
+flowchart TD
+  Server["Server B"];
+  AppX["Application X"];
+
+  subgraph teams
+    TeamSI["Server Infra LOT"];
+    TeamFR["local IT France"];
+  end
+  Server -- "operationally responsible" --> TeamSI
+  Server -- "hosts" --> AppX
+  AppX -- "owned by (accountable)" --> TeamFR

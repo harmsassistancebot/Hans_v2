@@ -1,0 +1,13 @@
+flowchart TD
+  Server["Server A"];
+  App["Application EV-CHARGING-APP"];
+  LZ["LZ 0056_EvCharging"];
+  subgraph teams
+    Team["I receive and pay my EVC service"];
+  end
+  Server -- "hosted in" --> LZ
+  LZ -- "operationally responsible and accountable" --> Team
+  Server -. "hosts" .-> App
+  App -. "owned by" .-> Team
+  %%Server -- "operationally responsible" --> Team
+  %%Server -- "accountable" --> Team

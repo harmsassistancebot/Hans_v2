@@ -91,6 +91,20 @@ Nur anzeigen wenn es tatsächlich Neuigkeiten gibt (neue Produkte, Ankündigunge
 
 Nur nutzen, wenn bereits aus Titel/Teaser ersichtlich ist, dass ein klarer strategischer Mehrwert besteht. Keine Volltext-Lektüre.
 
+## Deduplizierung (Anti-Repeat)
+
+Vor dem Briefing: lies `workspace/briefing/seen-stories.json`.
+Diese Datei enthält URLs und Titel von Stories, die in den letzten 7 Tagen bereits gemeldet wurden.
+
+Regeln:
+- **Schließe jede Story aus**, deren URL **oder** Titel (Fuzzy-Match: >70% ähnlich) bereits in `seen` vorkommt.
+- Nach dem Senden: aktualisiere `seen-stories.json` — füge alle verwendeten Stories als Objekte hinzu:
+  ```json
+  { "date": "YYYY-MM-DD", "url": "...", "title": "..." }
+  ```
+- Einträge älter als **7 Tage** beim Schreiben entfernen (rolling window).
+- Wenn nach Deduplizierung keine Story für eine Kategorie übrig bleibt: Kategorie weglassen oder nächstbeste nicht-gesehene Story wählen.
+
 ## Arbeitsweise für Meldungen
 Für jede gewählte Meldung:
 - Nutze **Headline + Quelle + Link**

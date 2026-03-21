@@ -4,6 +4,10 @@
     "obsidian-cli-official": {
       "version": "4.0.2",
       "installedAt": 1772740375134
+    },
+    "powerpoint-pptx": {
+      "version": "1.0.1",
+      "installedAt": 1774034157516
     }
   }
 }
