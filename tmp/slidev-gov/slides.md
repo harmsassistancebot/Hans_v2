@@ -6,13 +6,100 @@ class: text-center
 highlighter: shiki
 transition: slide-left
 mdc: true
-style: |
-  h1, h2, h3 {
-    font-family: 'Arial Black', Arial, sans-serif;
-    font-weight: 900;
-    letter-spacing: -0.02em;
-  }
 ---
+
+<style>
+/* ista Brand Colors */
+/* Ocean Blue #00003c | Off-White #f4f7f9 | Lime Green #1beb83 | Sky Blue #0071ff | Off-Black #00001b */
+
+:root {
+  --ista-ocean: #00003c;
+  --ista-white: #f4f7f9;
+  --ista-lime:  #1beb83;
+  --ista-sky:   #0071ff;
+  --ista-black: #00001b;
+}
+
+/* Base */
+.slidev-layout {
+  background: var(--ista-white) !important;
+  color: var(--ista-ocean) !important;
+  font-family: Arial, sans-serif !important;
+}
+
+/* Headings */
+h1, h2, h3 {
+  font-family: 'Arial Black', Arial, sans-serif !important;
+  font-weight: 900 !important;
+  color: var(--ista-ocean) !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* H1 accent underline in Lime Green */
+h1 {
+  border-bottom: 3px solid var(--ista-lime) !important;
+  padding-bottom: 8px !important;
+}
+
+/* Links */
+a {
+  color: var(--ista-sky) !important;
+}
+
+/* Blockquote */
+blockquote {
+  border-left: 4px solid var(--ista-lime) !important;
+  background: rgba(0, 0, 60, 0.04) !important;
+  padding: 12px 16px !important;
+  border-radius: 2px !important;
+  color: var(--ista-ocean) !important;
+}
+
+/* Tables */
+thead tr th {
+  background: var(--ista-ocean) !important;
+  color: var(--ista-white) !important;
+}
+tbody tr:nth-child(even) td {
+  background: rgba(0, 0, 60, 0.04) !important;
+}
+
+/* Cover slide (title) */
+.slidev-layout.cover {
+  background: var(--ista-ocean) !important;
+  color: var(--ista-white) !important;
+}
+.slidev-layout.cover h1,
+.slidev-layout.cover h2,
+.slidev-layout.cover h3,
+.slidev-layout.cover p {
+  color: var(--ista-white) !important;
+  border-bottom-color: var(--ista-lime) !important;
+}
+
+/* Center layout (transition slides) */
+.slidev-layout.center {
+  background: var(--ista-ocean) !important;
+  color: var(--ista-white) !important;
+}
+.slidev-layout.center h1,
+.slidev-layout.center h2 {
+  color: var(--ista-white) !important;
+  border-bottom-color: var(--ista-lime) !important;
+}
+.slidev-layout.center blockquote,
+.slidev-layout.center blockquote p {
+  color: var(--ista-white) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-left-color: var(--ista-lime) !important;
+}
+
+/* Page number */
+.slidev-layout footer,
+.slidev-page-number {
+  color: var(--ista-sky) !important;
+}
+</style>
 
 # Governance Engineering
 
@@ -104,6 +191,24 @@ Each discipline defines governance independently:
 | Financial Governance | Cost accountability |
 
 **Consequence:** Conflicting signals. Teams learn to ignore governance entirely.
+
+---
+
+# Failure 2: Stale & Invisible Policies
+
+Policies that live in documents have no structural incentive to stay current.
+
+<v-clicks>
+
+- No versioning, no changelogs, no notifications
+- Teams operate on outdated rules **without knowing it**
+- Compliance measured against the wrong baseline is **meaningless**
+
+</v-clicks>
+
+<br>
+
+> The same policy that was current in Q1 may already be wrong by Q3 — but nothing flags it.
 
 ---
 
